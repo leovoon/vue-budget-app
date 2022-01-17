@@ -19,7 +19,7 @@
       <q-card-section>
         <div class="q-gutter-y-md " style="max-width: 600px">
           <q-list bordered>
-            <q-slide-item v-for="expense in getBudgetExpenses(budgetId)" :key="expense.id" right-color="red" @right="onRight(expense)">
+            <q-slide-item v-for="expense in getBudgetExpenses(budgetId)" :key="expense.id" right-color="red" @right="onRight(expense, $event) ">
               <q-item v-ripple clickable>
                 <q-item-section>
                   <q-skeleton v-if="!expense" type="rect" />
@@ -87,10 +87,26 @@ function deleteConfirm(budget: Budgets) {
     persistent: true,
   }).onOk((e) => {
     budgetStore.deleteBudget(budget)
+    $q.notify({
+      position: 'top',
+      message: `Deleted budget "${budget.name}".`,
+    })
   })
 }
 
-function onRight(expense: Expenses) {
+let timer: NodeJS.Timeout
+
+function finalize(reset: () => void) {
+  timer = setTimeout(() => {
+    reset()
+  }, 50)
+}
+
+onBeforeUnmount(() => {
+  clearTimeout(timer)
+})
+
+function onRight(expense: Expenses, { reset }: { reset: () => void }) {
   $q.dialog({
     title: 'Delete expense',
     message: `Are you sure you want to delete "${expense.description}"?`,
@@ -103,8 +119,9 @@ function onRight(expense: Expenses) {
       position: 'top',
       message: `Deleted expense "${expense.description}".`,
     })
+    finalize(reset)
   }).onCancel(() => {
-    onDialogHide()
+    finalize(reset)
   })
 }
 
