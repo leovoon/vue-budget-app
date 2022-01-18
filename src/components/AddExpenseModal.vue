@@ -70,8 +70,8 @@
 <script lang="ts" setup>
 import { storeToRefs } from 'pinia'
 import { useDialogPluginComponent, useQuasar } from 'quasar'
+import { useTimestamp } from '@vueuse/core'
 import { UNCATEGORIZED_BUDGET_ID, useBudget } from '~/stores/budget'
-
 const { dialogRef, onDialogHide, onDialogOK, onDialogCancel } = useDialogPluginComponent()
 
 const props = defineProps({
@@ -93,6 +93,8 @@ const expense = reactive({
 const expenseForm = ref<HTMLFormElement | null>(null)
 
 const { description, amount } = toRefs(expense)
+const timestamp = useTimestamp({ immediate: false })
+
 const { budgets } = storeToRefs(budgetStore)
 
 const budgetOptions = computed(() => {
@@ -124,6 +126,7 @@ async function validate(showErrors: boolean) {
       description: description.value,
       amount: amount.value,
       budgetId: selectedBudget?.value!.value,
+      timestamp: timestamp.value,
       id: '',
     })
 

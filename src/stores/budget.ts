@@ -15,6 +15,7 @@ export interface Expenses {
   description: string
   amount: number
   budgetId: string
+  timestamp: number
 }
 
 export const useBudget = defineStore('budget', {
@@ -31,8 +32,8 @@ export const useBudget = defineStore('budget', {
     addExpense(expenses: Expenses) {
       this.setExpenses(expenses)
     },
-    setExpenses({ description, amount, budgetId }: Expenses) {
-      this.expenses = [...this.expenses, { id: uuidV4(), description, amount, budgetId }]
+    setExpenses({ description, amount, budgetId, timestamp }: Expenses) {
+      this.expenses = [...this.expenses, { id: uuidV4(), description, amount, budgetId, timestamp }]
       useStorage('expenses', this.expenses)
     },
     addBudget(budget: Budgets) {

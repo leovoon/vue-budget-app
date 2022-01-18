@@ -23,7 +23,10 @@
               <q-item v-ripple clickable>
                 <q-item-section>
                   <q-skeleton v-if="!expense" type="rect" />
-                  {{ expense.description }}
+                  <q-item-label class="text-body">
+                    {{ expense.description }}
+                  </q-item-label>
+                  <q-item-label caption class="text-grey-6" v-text="useTimeAgo(expense.timestamp).value" />
                 </q-item-section>
                 <q-item-section avatar>
                   <q-item-label>
@@ -50,9 +53,9 @@
 <script lang="ts" setup>
 import { useDialogPluginComponent, useQuasar } from 'quasar'
 import { storeToRefs } from 'pinia'
+import { useTimeAgo } from '@vueuse/core'
 import { UNCATEGORIZED_BUDGET_ID, useBudget } from '~/stores/budget'
 import type { Budgets, Expenses } from '~/stores/budget'
-
 import { currencyFormatter } from '~/composables/currencyFormatter'
 
 const budgetStore = useBudget()
