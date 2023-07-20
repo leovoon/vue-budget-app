@@ -1,13 +1,3 @@
-<template>
-  <div class="q-pa-lg q-gutter-lg ">
-    <q-tree default-expand-all :nodes="info" node-key="label" />
-  </div>
-  <div class="q-pa-md q-gutter-md justify-center row">
-    <q-btn class="col-6" color="indigo" icon="bug_report" label="Submit issue" href="https://github.com/leovoon/vue-budget-app/issues/new" />
-    <q-btn class="col-6" color="pink-8" icon="star" label="Give a star" href="https://github.com/leovoon/vue-budget-app/" />
-  </div>
-</template>
-
 <script setup lang="ts">
 const info = ref([
   {
@@ -38,3 +28,13 @@ const info = ref([
   },
 ])
 </script>
+
+<template>
+  <div class="q-pa-lg q-gutter-lg ">
+    <q-tree default-expand-all :nodes="info" node-key="label" />
+  </div>
+  <div class="q-pa-md q-gutter-md justify-center row">
+    <q-btn class="col-6" color="indigo" icon="bug_report" label="Submit issue" href="https://github.com/leovoon/vue-budget-app/issues/new" />
+    <q-btn class="col-6" color="pink-8" icon="star" label="Give a star" href="https://github.com/leovoon/vue-budget-app/" />
+  </div>
+</template>

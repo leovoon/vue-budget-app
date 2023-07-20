@@ -1,9 +1,3 @@
-<template>
-  <div class="q-pa-md row justify-center items-start q-gutter-lg">
-    <budget-card v-for="budget in budgets" :key="budget.id" :description="budget.description" :max="budget.max" :name="budget.name" :amount="getAmountByBudgetId(budget.id)" @add-expense="openAddExpenseModal(budget.id)" @view-expense="openViewExpensesModal(budget.id)" />
-    <budget-card-uncategorized @add-expense="openAddExpenseModal(UNCATEGORIZED_BUDGET_ID)" @view-expense="openViewExpensesModal(UNCATEGORIZED_BUDGET_ID)" />
-  </div>
-</template>
 <script setup lang="ts">
 import { useQuasar } from 'quasar'
 import { storeToRefs } from 'pinia'
@@ -39,3 +33,10 @@ function openAddExpenseModal(budgetId: string) {
   })
 }
 </script>
+
+<template>
+  <div class="q-pa-md row justify-center items-start q-gutter-lg">
+    <budget-card v-for="budget in budgets" :key="budget.id" :description="budget.description" :max="budget.max" :name="budget.name" :amount="getAmountByBudgetId(budget.id)" @add-expense="openAddExpenseModal(budget.id)" @view-expense="openViewExpensesModal(budget.id)" />
+    <budget-card-uncategorized @add-expense="openAddExpenseModal(UNCATEGORIZED_BUDGET_ID)" @view-expense="openViewExpensesModal(UNCATEGORIZED_BUDGET_ID)" />
+  </div>
+</template>

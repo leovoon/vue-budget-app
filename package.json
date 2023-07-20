@@ -8,30 +8,30 @@
     "test": "vitest"
   },
   "dependencies": {
-    "@quasar/extras": "^1.12.3",
-    "@vueuse/core": "^7.4.1",
-    "pinia": "^2.0.9",
-    "uuid": "^8.3.2",
-    "vue": "^3.2.26",
-    "vue-router": "^4.0.12"
+    "@quasar/extras": "^1.16.5",
+    "@vueuse/core": "^10.2.1",
+    "pinia": "^2.1.4",
+    "quasar": "^2.12.3",
+    "uuid": "^9.0.0",
+    "vue": "^3.3.4",
+    "vue-router": "^4.2.4"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^0.14.2",
-    "@quasar/vite-plugin": "^1.0.4",
-    "@types/node": "^17.0.5",
-    "@types/uuid": "^8.3.4",
-    "@vitejs/plugin-vue": "^2.0.1",
-    "@vue/test-utils": "^2.0.0-rc.18",
-    "eslint": "^8.5.0",
-    "jsdom": "^19.0.0",
-    "pnpm": "^6.24.3",
-    "quasar": "^2.4.8",
-    "sass": "1.32.0",
-    "typescript": "^4.5.4",
-    "unplugin-auto-import": "^0.5.5",
-    "unplugin-vue-components": "^0.17.11",
-    "vite": "^2.7.9",
-    "vite-plugin-pages": "^0.19.8",
-    "vitest": "^0.0.119"
+    "@antfu/eslint-config": "^0.39.8",
+    "@quasar/vite-plugin": "^1.4.1",
+    "@types/node": "^20.4.2",
+    "@types/uuid": "^9.0.2",
+    "@vitejs/plugin-vue": "^4.2.3",
+    "@vue/test-utils": "^2.4.0",
+    "eslint": "^8.45.0",
+    "jsdom": "^22.1.0",
+    "pnpm": "^8.6.9",
+    "sass": "1.64.0",
+    "typescript": "^5.1.6",
+    "unplugin-auto-import": "^0.16.6",
+    "unplugin-vue-components": "^0.25.1",
+    "vite": "^4.4.4",
+    "vite-plugin-pages": "^0.31.0",
+    "vitest": "^0.33.0"
   }
 }

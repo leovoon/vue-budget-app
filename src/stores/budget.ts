@@ -1,6 +1,7 @@
 import { acceptHMRUpdate, defineStore } from 'pinia'
 import { v4 as uuidV4 } from 'uuid'
 import { useStorage } from '@vueuse/core'
+
 export const UNCATEGORIZED_BUDGET_ID = 'Uncategorized'
 
 export interface Budgets {
@@ -40,7 +41,9 @@ export const useBudget = defineStore('budget', {
       this.setBudgets(budget)
     },
     setBudgets({ name, description, max }: Budgets) {
-      if (this.budgets.find(budget => budget.name === name)) { return this.budgets }
+      if (this.budgets.find(budget => budget.name === name)) {
+        return this.budgets
+      }
       else {
         this.budgets = [...this.budgets, { id: uuidV4(), name, description, max }]
         useStorage('budgets', this.budgets)
@@ -48,7 +51,8 @@ export const useBudget = defineStore('budget', {
     },
     deleteBudget({ id }: Budgets) {
       this.expenses = this.expenses.map((expense: Expenses) => {
-        if (expense.budgetId !== id) return expense
+        if (expense.budgetId !== id)
+          return expense
         return { ...expense, budgetId: UNCATEGORIZED_BUDGET_ID }
       })
       this.budgets = this.budgets.filter(budget => budget.id !== id)

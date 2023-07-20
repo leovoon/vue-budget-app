@@ -14,7 +14,6 @@ import '@quasar/extras/material-icons/material-icons.css'
 // Import Quasar css
 import 'quasar/src/css/index.sass'
 
-// @ts-ignore
 const app = createApp(App)
 const router = createRouter({
   history: createWebHistory(),

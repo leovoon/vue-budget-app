@@ -1,3 +1,36 @@
+<script lang="ts" setup>
+import { Dark, QBtn, useQuasar } from 'quasar'
+import { storeToRefs } from 'pinia'
+import AddExpenseModalVue from './components/AddExpenseModal.vue'
+import AddBudgetModalVue from '~/components/AddBudgetModal.vue'
+import { useBudget } from '~/stores/budget'
+import { getProgressValue, getProgressVariant } from '~/composables/getProgress'
+import { currencyFormatter } from '~/composables/currencyFormatter'
+
+// total card at bottom
+const budgetStore = useBudget()
+const $q = useQuasar()
+const { expenses, budgets } = storeToRefs(budgetStore)
+const amount = computed(() =>
+  expenses.value.reduce((total, expense) => total + expense.amount, 0),
+)
+const max = computed(() => budgets.value.reduce((total, budget) => total + budget.max, 0))
+const totalRatio = computed(() => getProgressValue(amount.value, max.value))
+const variant = computed(() => getProgressVariant(amount.value, max.value))
+
+function openAddBudgetModal() {
+  $q.dialog({
+    component: AddBudgetModalVue,
+  })
+}
+
+function openAddExpenseModal() {
+  $q.dialog({
+    component: AddExpenseModalVue,
+  })
+}
+</script>
+
 <template>
   <q-layout view="hHh lpR fFf">
     <q-header elevated class="bg-primary text-white" height-hint="98">
@@ -6,26 +39,26 @@
           <Logo />
         </q-avatar>
         <q-toolbar-title>
-          <q-btn flat dense to="/">
+          <QBtn flat dense to="/">
             Vue Budget
-          </q-btn>
+          </QBtn>
         </q-toolbar-title>
-        <q-btn flat round dense class="q-mr-md" icon="info" to="/about" />
-        <q-btn flat round dense @click="Dark.toggle()">
+        <QBtn flat round dense class="q-mr-md" icon="info" to="/about" />
+        <QBtn flat round dense @click="Dark.toggle()">
           <q-icon v-if="Dark.mode" name="dark_mode" />
           <q-icon v-if="!Dark.mode" name="lightbulb" />
-        </q-btn>
+        </QBtn>
       </q-toolbar>
 
       <q-toolbar align="right" class="q-pa-xs q-mt-xs q-mb-xs bg-primary">
         <div class="col q-gutter-md items-end">
-          <q-btn
+          <QBtn
             color="indigo text-capitalize"
             label="Add Budget"
             icon="calculate"
             @click="openAddBudgetModal"
           />
-          <q-btn
+          <QBtn
             color="secondary text-capitalize"
             label="Add Expense"
             icon-right="attach_money"
@@ -62,37 +95,3 @@
     </q-footer>
   </q-layout>
 </template>
-
-<script lang="ts" setup>
-import { Dark, QBtn, useQuasar } from 'quasar'
-import { storeToRefs } from 'pinia'
-import AddExpenseModalVue from './components/AddExpenseModal.vue'
-import AddBudgetModalVue from '~/components/AddBudgetModal.vue'
-import { useBudget } from '~/stores/budget'
-import { getProgressValue, getProgressVariant } from '~/composables/getProgress'
-import { currencyFormatter } from '~/composables/currencyFormatter'
-
-// total card at bottom
-const budgetStore = useBudget()
-const $q = useQuasar()
-const { expenses, budgets } = storeToRefs(budgetStore)
-const amount = computed(() =>
-  expenses.value.reduce((total, expense) => total + expense.amount, 0),
-)
-const max = computed(() => budgets.value.reduce((total, budget) => total + budget.max, 0))
-const totalRatio = computed(() => getProgressValue(amount.value, max.value))
-const variant = computed(() => getProgressVariant(amount.value, max.value))
-
-function openAddBudgetModal() {
-  $q.dialog({
-    component: AddBudgetModalVue,
-  })
-}
-
-function openAddExpenseModal() {
-  $q.dialog({
-    component: AddExpenseModalVue,
-  })
-}
-
-</script>
