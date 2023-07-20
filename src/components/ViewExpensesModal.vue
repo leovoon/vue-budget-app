@@ -20,7 +20,7 @@ const $q = useQuasar()
 const { getBudgetExpenses, budgets } = storeToRefs(budgetStore)
 
 const budget = computed(() => UNCATEGORIZED_BUDGET_ID === props.budgetId
-  ? { name: 'Uncategorized', id: UNCATEGORIZED_BUDGET_ID }
+  ? { name: 'Uncategorized', id: UNCATEGORIZED_BUDGET_ID, max: 0, description: '' }
   : budgets.value.find(b => b.id === props.budgetId),
 )
 
@@ -87,7 +87,7 @@ function onRight(expense: Expenses, { reset }: { reset: () => void }) {
             {{ budget?.name }}
           </q-chip>
 
-          <q-btn v-if="!isUncategorized" v-close-popup flat round color="red" dense icon="delete" @click="deleteConfirm(budget)" />
+          <q-btn v-if="budget && !isUncategorized" v-close-popup flat round color="red" dense icon="delete" @click="deleteConfirm(budget)" />
         </q-toolbar-title>
 
         <q-btn v-close-popup flat round dense icon="close" />
